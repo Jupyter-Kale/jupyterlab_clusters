@@ -6,7 +6,6 @@ import {
 //   map, toArray
 // } from '@phosphor/algorithm';
 
-
 import {
     ICommandPalette, VDomRenderer, VDomModel
 } from '@jupyterlab/apputils';
@@ -52,21 +51,31 @@ class ClustersModel extends VDomModel implements IClusters {
         this.stateChanged.emit(void 0);
     }
 
-    get profile_options(): string[] {
-        return this._profile_options;
+    get profiles(): string[] {
+        return this._profiles;
     }
-    set profile_options(newopts: string[]) {
-        this._profile_options = newopts;
+    set profiles(newopts: string[]) {
+        this._profiles = newopts;
+        this.stateChanged.emit(void 0);
     }
 
-    private _location: string = '';
+    get isConnected(): boolean {
+        return this._isConnected;
+    }
+    set isConnected(newbool: boolean) {
+        this._isConnected = newbool;
+        this.stateChanged.emit(void 0);
+    }
+
+    private _location: string = 'localhost';
     private _profile: string = 'default';
     private _numEngines: number = 1;
-    private _profile_options: string[] = ['default', 'otherprof'];
+    private _profiles: string[] = ['default', 'otherprof'];
+    private _isConnected: boolean = false;
 }
 
-class ProfileSelect extends React.Component<Clusters.IProfileSelectProps> {
-    constructor(props: Clusters.IProfileSelectProps) {
+class ProfileSelect extends React.Component<Clusters.IModelProps> {
+    constructor(props: Clusters.IModelProps) {
         super(props);
     }
 
@@ -75,29 +84,51 @@ class ProfileSelect extends React.Component<Clusters.IProfileSelectProps> {
         console.log("ProfileSelect has props:");
         console.log(this.props);
 
-        // options = [];
+        let profiles: string[] = this.props.model.profiles;
+        let opts: React.ReactElement<any>[] = [];
 
-        // for(let option of this.props.model.profile_options) {
-        //     options.push(
-        //         <option value={option}>
-        //             {option}
-        //         </option>
-        //     )
-        // }
-
-        let opts: React.ReactElement<any> = this.props.model.profile_options.map((opt: string) => {
-            <option value={opt}>
-                {opt}
-            </option>
-        });
-
-        console.log("opts: ", opts);
+        for(let i = 0; i < profiles.length; i++) {
+            let opt: string = profiles[i];
+            opts.push(
+                <option key={i} value={opt}>
+                    {opt}
+                </option>
+            )
+        }
 
         return (
             <select className='jp-Clusters-profile-select'>
                 {opts}
             </select>
         )
+    }
+}
+
+class ConnectButton extends React.Component<Clusters.IModelProps> {
+    constructor(props: Clusters.IModelProps) {
+        super(props);
+        // Bind this for event handler
+        // See https://stackoverflow.com/questions/36106384/reactjs-typescript-event-this-undefined
+        this.onButtonClick = this.onButtonClick.bind(this);
+    }
+
+    render(): React.ReactElement<any> {
+        let buttonText: string = (
+            this.props.model.isConnected ? 'Disconnect' : 'Connect'
+        );
+        return (
+            <button
+                className='jp-Clusters-connect-button'
+                onClick={this.onButtonClick}
+            >
+                {buttonText}
+            </button>
+        )
+    }
+
+    onButtonClick(evt: React.MouseEvent<HTMLElement>): void {
+        //TODO: Actually connect.
+        this.props.model.isConnected = ! this.props.model.isConnected;
     }
 }
 
@@ -112,29 +143,57 @@ class Clusters extends VDomRenderer<ClustersModel> {
             return null;
         }
 
+        let title: React.ReactElement<any> = (
+            <h2 className='jp-Clusters-title'>IPyParallel Clusters</h2>
+        )
+
         let locationInput: React.ReactElement<any> = (
-            <div className='jp-Clusters-location-div'>
-                <input className='jp-Clusters-location-input' value={this.model.location} />
+            <div className='jp-Clusters-row-div'>
+                <span className='jp-Clusters-leftspan'>
+                    <label>Location</label>
+                </span>
+                <span className='jp-Clusters-rightspan'>
+                    <input className='jp-Clusters-location-input' defaultValue={this.model.location} />
+                </span>
             </div>
         );
         let profileSelect: React.ReactElement<any> = (
-            <div className='jp-Clusters-profile-div'>
-                <ProfileSelect model={this.model} />
+            <div className='jp-Clusters-row-div'>
+                <span className='jp-Clusters-leftspan'>
+                    <label>Profile</label>
+                </span>
+                <span className='jp-Clusters-rightspan'>
+                    <ProfileSelect model={this.model} />
+                </span>
             </div>
         );
         let nEnginesInput: React.ReactElement<any> = (
-            <div className='jp-Clusters-nEngines-div'>
-                <input type='number' className='jp-Clusters-nEngines-input' />
+            <div className='jp-Clusters-row-div'>
+                <span className='jp-Clusters-leftspan'>
+                    <label># of Engines</label>
+                </span>
+                <span className='jp-Clusters-rightspan'>
+                    <input type='number' className='jp-Clusters-nEngines-input' />
+                </span>
             </div>
         );
         let connectButton: React.ReactElement<any> = (
-            <div className='jp-Clusters-connect-div'>
-                <button className='jp-Clusters-connect-button' />
+            <div className='jp-Clusters-row-div'>
+                <br />
+                <span className='jp-Clusters-leftspan'>
+                </span>
+                <span className='jp-Clusters-rightspan'>
+                    <ConnectButton model={this.model}/>
+                </span>
             </div>
         );
 
         return (
             <div className='jp-Clusters-body'>
+                <div className='jp-Clusters-header'>
+                    {title}
+                </div>
+
                 <div className='jp-Clusters-content'>
                     {locationInput}
                     {profileSelect}
@@ -152,7 +211,7 @@ namespace Clusters {
     }
 
     export
-    interface IProfileSelectProps {
+    interface IModelProps {
         // Just keep the Clusters model, which has the profiles
         model: ClustersModel
     }
@@ -186,7 +245,6 @@ namespace Clusters {
                 console.log("Clusters focused.");
 
                 return clusters
-
             }
         });
         palette.addItem({command, category: 'HPC'});
