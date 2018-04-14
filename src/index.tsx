@@ -150,7 +150,9 @@ class Clusters extends VDomRenderer<ClustersModel> {
         let locationInput: React.ReactElement<any> = (
             <div className='jp-Clusters-row-div'>
                 <span className='jp-Clusters-leftspan'>
-                    <label>Location</label>
+                    <label className='jp-Clusters-label'>
+                        Location
+                    </label>
                 </span>
                 <span className='jp-Clusters-rightspan'>
                     <input className='jp-Clusters-location-input' defaultValue={this.model.location} />
@@ -160,20 +162,24 @@ class Clusters extends VDomRenderer<ClustersModel> {
         let profileSelect: React.ReactElement<any> = (
             <div className='jp-Clusters-row-div'>
                 <span className='jp-Clusters-leftspan'>
-                    <label>Profile</label>
+                    <label className='jp-Clusters-label'>
+                        Profile
+                    </label>
                 </span>
                 <span className='jp-Clusters-rightspan'>
                     <ProfileSelect model={this.model} />
                 </span>
             </div>
         );
-        let nEnginesInput: React.ReactElement<any> = (
+        let numEnginesInput: React.ReactElement<any> = (
             <div className='jp-Clusters-row-div'>
                 <span className='jp-Clusters-leftspan'>
-                    <label># of Engines</label>
+                    <label className='jp-Clusters-label'>
+                        # of Engines
+                    </label>
                 </span>
                 <span className='jp-Clusters-rightspan'>
-                    <input type='number' className='jp-Clusters-nEngines-input' />
+                <input type='number' className='jp-Clusters-numEngines-input' defaultValue={this.model.numEngines}/>
                 </span>
             </div>
         );
@@ -197,7 +203,7 @@ class Clusters extends VDomRenderer<ClustersModel> {
                 <div className='jp-Clusters-content'>
                     {locationInput}
                     {profileSelect}
-                    {nEnginesInput}
+                    {numEnginesInput}
                     {connectButton}
                 </div>
             </div>

@@ -2,6 +2,11 @@
 
 IPyParallel interface for remote and local clusters
 
+**This extension is under development and currently does just about nothing**
+
+## Screenshot
+![screenshot](extras/screenshot.png)
+
 
 ## Prerequisites
 

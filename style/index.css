@@ -61,7 +61,6 @@ div.jp-Clusters-row-div {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
 }
 
 span.jp-Clusters-leftspan {
@@ -93,6 +92,11 @@ span.jp-Clusters-rightspan {
     transition: .2s box-shadow;
     border-radius: var(--jp-border-radius);
     font-family: monospace;
+    text-indent: 5px;
+}
+
+.jp-Clusters-label {
+    width: 85px;
 }
 
 .jp-Clusters-profile-select {
@@ -108,7 +112,7 @@ span.jp-Clusters-rightspan {
     font-family: monospace;
 }
 
-.jp-Clusters-nEngines-input {
+.jp-Clusters-numEngines-input {
     width: var(--jp-private-clusters-element-width);
     height: var(--jp-private-clusters-element-height);
     margin: 8px;
@@ -119,6 +123,7 @@ span.jp-Clusters-rightspan {
     transition: .2s box-shadow;
     border-radius: var(--jp-border-radius);
     font-family: monospace;
+    text-indent: 5px;
 }
 
 .jp-Clusters-connect-div {
