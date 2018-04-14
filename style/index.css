@@ -48,7 +48,7 @@
 .jp-Clusters-location-input {
     display: flex;
     flex-direction: column;
-    cursor: pointer;
+    /*cursor: pointer;*/
     width: var(--jp-private-clusters-element-width);
     height: var(--jp-private-clusters-element-height);
     margin: 8px;
@@ -61,29 +61,92 @@
 }
 
 .jp-Clusters-password-div {
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .jp-Clusters-password-input {
-
+    display: flex;
+    flex-direction: column;
+    /*cursor: pointer;*/
+    width: var(--jp-private-clusters-element-width);
+    height: var(--jp-private-clusters-element-height);
+    margin: 8px;
+    padding: 0px;
+    border: 1px solid var(--jp-border-color1);
+    background: var(--jp-layout-color1);
+    box-shadow: var(--jp-elevation-z2);
+    transition: .2s box-shadow;
+    border-radius: var(--jp-border-radius);
 }
 
 .jp-Clusters-profile-div {
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .jp-Clusters-profile-select {
+    display: flex;
+    flex-direction: column;
+    /*cursor: pointer;*/
+    width: var(--jp-private-clusters-element-width);
+    height: var(--jp-private-clusters-element-height);
+    margin: 8px;
+    padding: 0px;
+    border: 1px solid var(--jp-border-color1);
+    background: var(--jp-layout-color1);
+    box-shadow: var(--jp-elevation-z2);
+    transition: .2s box-shadow;
+    border-radius: var(--jp-border-radius);
 
 }
 
 .jp-Clusters-nEngines-div {
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .jp-Clusters-nEngines-input {
-
+    display: flex;
+    flex-direction: column;
+    /*cursor: pointer;*/
+    width: var(--jp-private-clusters-element-width);
+    height: var(--jp-private-clusters-element-height);
+    margin: 8px;
+    padding: 0px;
+    border: 1px solid var(--jp-border-color1);
+    background: var(--jp-layout-color1);
+    box-shadow: var(--jp-elevation-z2);
+    transition: .2s box-shadow;
+    border-radius: var(--jp-border-radius);
 }
 
 .jp-Clusters-connect-div {
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .jp-Clusters-connect-button {
-
+    display: flex;
+    flex-direction: column;
+    /*cursor: pointer;*/
+    margin: 8px;
+    padding: 0px;
+    border: 1px solid var(--jp-border-color1);
+    background: var(--jp-layout-color1);
+    box-shadow: var(--jp-elevation-z2);
+    transition: .2s box-shadow;
+    border-radius: var(--jp-border-radius);
 }
