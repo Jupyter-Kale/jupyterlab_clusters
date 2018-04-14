@@ -179,7 +179,10 @@ class Clusters extends VDomRenderer<ClustersModel> {
                     </label>
                 </span>
                 <span className='jp-Clusters-rightspan'>
-                <input type='number' className='jp-Clusters-numEngines-input' defaultValue={this.model.numEngines}/>
+                    <input
+                        type='number'
+                        className='jp-Clusters-numEngines-input'
+                        defaultValue={String(this.model.numEngines)} />
                 </span>
             </div>
         );
